@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Game Giveaway Test</title>
+</head>
+<body>
+
+    <button onclick="loadData()">Load Giveaway</button>
+
+    <h1 id="title">Title will appear here</h1>
+
+    <img id="image" width="400">
+
+    <p>
+        <strong>Worth:</strong>
+        <span id="worth"></span>
+    </p>
+
+    <p>
+        <strong>Platform:</strong>
+        <span id="platform"></span>
+    </p>
+
+    <p>
+        <strong>Description:</strong>
+        <span id="description"></span>
+    </p>
+
+    <p>
+        <strong>Published on :</strong>
+        <span id="pdate"></span>
+    </p>
+
+    <p>
+        <strong>End date :</strong>
+        <span id="edate"></span>
+    </p>
+
+    <a id="link" target="_blank">
+        Open Giveaway
+    </a>
+
+    <p>
+        Instructions : 
+        <span id="instructions"></span>
+    </p>
+
+    <p>
+        type : 
+        <span id="type"></span>
+    </p>
+
+    <p>
+        <strong>Users :</strong>
+        <span id="users"></span>
+    </p>
+
+    <p>
+        <strong>Status :</strong>
+        <span id="status"></span>
+    </p>
+
+    <a id="gurl" target="_blank">
+        gamerpower url
+    </a>
+    <p></p>
+
+    <a id="ogive" target="_blank">
+        open giveaway
+    </a>
+
+    <img id="thumb" width="400">
+
+    <script>
+        async function loadData() {
+
+            const response = await fetch(
+                "https://www.gamerpower.com/api/giveaways"
+            );
+
+            const data = await response.json();
+
+            const game = data[8];
+
+            document.getElementById("title").textContent =
+                game.title;
+
+            document.getElementById("worth").textContent =
+                game.worth;
+
+            document.getElementById("platform").textContent =
+                game.platforms;
+
+            document.getElementById("description").textContent =
+                game.description;
+
+            document.getElementById("image").src =
+                game.image;
+
+            document.getElementById("link").href =
+                game.open_giveaway_url;
+
+            document.getElementById("instructions").textContent =
+                game.instructions;
+
+            document.getElementById("pdate").textContent =
+                game.published_date;
+
+            document.getElementById("type").textContent =
+                game.type;
+
+            document.getElementById("edate").textContent =
+                game.end_date;
+            
+            document.getElementById("users").textContent =
+                game.users;
+
+            document.getElementById("status").textContent =
+                game.status;
+
+            document.getElementById("gurl").href =
+                game.gamerpower_url;
+
+            document.getElementById("ogive").href =
+                game.open_giveaway;
+
+            document.getElementById("thumb").src =
+                game.thumbnail;
+        }
+    </script>
+
+</body>
+</html>
