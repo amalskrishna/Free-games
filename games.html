@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Game Giveaway Test</title>
+</head>
+<body>
+
+    <button onclick="loadData()">Load Giveaway</button>
+
+    <div id="games"></div>
+
+    <script>
+        async function loadData() {
+
+            const response = await fetch(
+                "https://www.gamerpower.com/api/giveaways"
+            );
+
+            const data = await response.json();
+
+            const game = data[8];
+
+            const container = document.getElementById("games");
+
+            for (let i = 0; i < data.length; i++) {
+
+                 container.innerHTML += `
+                    <h2>${data[i].title}</h2>
+                    <p>${data[i].worth}</p>
+                    <img src=${data[i].image}>
+                    <p><strong>Platform : </strong>${data[i].platforms}</p>
+                    <p><strong>End date : </strong>${data[i].end_date}</p>
+                    <a href=${data[i].open_giveaway_url} target="_blank">Click to page</a>
+                    <hr>
+                `;
+            }
+        }
+    </script>
+
+</body>
+</html>

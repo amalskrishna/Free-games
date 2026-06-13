@@ -80,7 +80,7 @@
 
             const data = await response.json();
 
-            const game = data[8];
+            const game = data[0];
 
             document.getElementById("title").textContent =
                 game.title;
@@ -126,6 +126,10 @@
 
             document.getElementById("thumb").src =
                 game.thumbnail;
+
+            for (let i = 0; i < 3; i++) {
+    console.log(data[i].title);
+}
         }
     </script>
 
