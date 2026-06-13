@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Game Giveaway Test</title>
+    <link rel="stylesheet" href="games.css">
 </head>
 <body>
 
@@ -10,6 +11,12 @@
     <div id="games"></div>
 
     <script>
+        function getDaysLeft(dstring){
+            const enddate = new Date(dstring);
+            const today = new Date();
+            const diff =  enddate - today;
+            return Math.ceil(diff / (1000 * 60 * 60 * 24));
+        }
         async function loadData() {
 
             const response = await fetch(
@@ -18,20 +25,35 @@
 
             const data = await response.json();
 
-            const game = data[8];
+            const filter = data.filter(game => {
+                const plat=game.platforms.toLowerCase();
+                const stepic = plat.includes("steam") || plat.includes("epic");
+                const isgame = game.type.toLowerCase() === "game";
+                return stepic && isgame;
+            });
+            console.log(filter.length);
+
+            filter.sort((a,b) => {
+                return new Date(a.end_date) - new Date(b.end_date);
+            });
 
             const container = document.getElementById("games");
 
-            for (let i = 0; i < data.length; i++) {
+            for (let i = 0; i < filter.length; i++) {
 
-                 container.innerHTML += `
-                    <h2>${data[i].title}</h2>
-                    <p>${data[i].worth}</p>
-                    <img src=${data[i].image}>
-                    <p><strong>Platform : </strong>${data[i].platforms}</p>
-                    <p><strong>End date : </strong>${data[i].end_date}</p>
-                    <a href=${data[i].open_giveaway_url} target="_blank">Click to page</a>
-                    <hr>
+                const gam = filter[i];
+                const daysleft = getDaysLeft(gam.end_date)
+                console.log(gam.title, daysleft); 
+                container.innerHTML += `
+                    <div class="card">
+                        <img src=${gam.image}>
+                        <h2>${gam.title}</h2>
+                        <p>Normal Price : ${gam.worth}</p>
+                        <p><strong>Platform : </strong>${gam.platforms}</p>
+                        <p><strong>End date : </strong>${gam.end_date}</p>
+                        <p>${daysleft} days left</p>
+                        <a href=${gam.open_giveaway_url} target="_blank">Click to page</a>
+                    </div>
                 `;
             }
         }
