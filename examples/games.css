@@ -1,0 +1,38 @@
+#games {
+    display : flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    
+}
+
+body {
+    margin : 0;
+}
+
+.card {
+    width: 350px;
+    padding: 15px;
+}
+
+img {
+    width : 350px;
+}
+
+.imgcont {
+    position: relative;
+}
+
+.banner {
+    position: absolute;
+    top: -13px;
+    right: 0px;
+
+    padding: 6px 12px;
+
+    background: rgb(175, 0, 0);
+    color: white;
+    font-weight: bold;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.486);
+
+    
+}
