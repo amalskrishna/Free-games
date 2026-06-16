@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SteaLit — Free Game Giveaways</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="site-header">
+        <div class="header-inner">
+            <div class="logo">
+                <span class="logo-icon">◈</span>
+                <span class="logo-text">Stea<em>Lit</em></span>
+            </div>
+            <p class="tagline">If you have a pc , steal 'em games before offer ends</p>
+        </div>
+    </header>
+
+    <!-- CONTROLS -->
+    <section class="controls">
+        <div class="controls-inner">
+            <div class="search-wrap">
+                <span class="search-icon">⌕</span>
+                <input type="text" id="search" placeholder="Search giveaways…" autocomplete="off" />
+            </div>
+            <div class="filter-chips">
+                <button class="chip active" data-filter="all">All</button>
+                <button class="chip" data-filter="steam">Steam</button>
+                <button class="chip" data-filter="epic">Epic Games</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATUS BAR -->
+    <div class="status-bar">
+        <span id="result-count"></span>
+    </div>
+
+    <!-- GAME GRID -->
+    <main>
+        <!-- Skeleton shown while loading -->
+        <div id="skeleton-grid" class="games-grid">
+            <div class="skeleton-card"><div class="sk-img"></div><div class="sk-line wide"></div><div class="sk-line mid"></div><div class="sk-line short"></div></div>
+            <div class="skeleton-card"><div class="sk-img"></div><div class="sk-line wide"></div><div class="sk-line mid"></div><div class="sk-line short"></div></div>
+            <div class="skeleton-card"><div class="sk-img"></div><div class="sk-line wide"></div><div class="sk-line mid"></div><div class="sk-line short"></div></div>
+            <div class="skeleton-card"><div class="sk-img"></div><div class="sk-line wide"></div><div class="sk-line mid"></div><div class="sk-line short"></div></div>
+            <div class="skeleton-card"><div class="sk-img"></div><div class="sk-line wide"></div><div class="sk-line mid"></div><div class="sk-line short"></div></div>
+            <div class="skeleton-card"><div class="sk-img"></div><div class="sk-line wide"></div><div class="sk-line mid"></div><div class="sk-line short"></div></div>
+        </div>
+
+        <!-- Real content -->
+        <div id="games" class="games-grid" style="display:none;"></div>
+
+        <!-- Empty state -->
+        <div id="empty-state" class="empty-state" style="display:none;">
+            <span class="empty-icon">◉</span>
+            <p>No giveaways match your search.</p>
+            <small>Try a different title or switch the platform filter.</small>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <p>Giveaway data via <a href="https://www.gamerpower.com" target="_blank" style="color:rgb(125, 164, 121)">GamerPower</a> &nbsp;·&nbsp;</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -9,6 +9,46 @@ body {
     margin : 0;
 }
 
+#logo {
+    margin-left: 50px;
+    background-color: blueviolet;
+    flex-shrink: 0;
+}
+
+#login {
+    display: flex;
+    margin-right: 50px;
+    background-color: blueviolet;
+    align-items: center;
+}
+
+.search-section{
+    display: flex;
+    position: fixed;
+    align-items: center;
+    justify-content: space-between;
+    background-color: aqua;
+    left: 50px;
+    right: 50px;
+    height: 50px;
+    border-radius: 25px;
+    z-index: 1000;
+
+}
+
+#search {
+    height: 30px;
+    width: 100%;
+    border-radius: 19px;
+    background-color: red;
+}
+#searchbar {
+    background-color: blueviolet;
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
 .card {
     width: 350px;
     padding: 15px;
