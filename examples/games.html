@@ -3,77 +3,20 @@
 <head>
     <title>Game Giveaway Test</title>
     <link rel="stylesheet" href="games.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-    <div class="search-section">
-        <div id="logo"><p>◈ STEALIT</p></div>
+    <header id="navbar">
+        <div id="logo"><span class="green">◈</span> STEA<span class="green">LIT</span></div>
         <div id ="searchbar"><input type="text" id="search" placeholder="Search games .. 🥀"></div>
-        <div id="login"><button>Login</button></div>
-    </div>
+        <div id="login"><button>Subscribe</button></div>
+    </header>
     <div id="games"></div>
 
-    <script>
-        let allgames = [];
-        let filteredgames = [];
-        function getDaysLeft(dstring){
-            const enddate = new Date(dstring);
-            const today = new Date();
-            const diff =  enddate - today;
-            return Math.ceil(diff / (1000 * 60 * 60 * 24));
-        }
-        async function loadData() {
-
-            const response = await fetch(
-                "https://www.gamerpower.com/api/giveaways"
-            );
-
-            const data = await response.json();
-            allgames = data ;
-            filteredgames = data ;
-
-
-            const filter = data.filter(game => {
-                const plat=game.platforms.toLowerCase();
-                const stepic = plat.includes("steam") || plat.includes("epic");
-                const isgame = game.type.toLowerCase() === "game";
-                return stepic && isgame;
-            });
-            console.log(filter.length);
-
-            filter.sort((a,b) => {
-                return new Date(a.end_date) - new Date(b.end_date);
-            });
-
-            const container = document.getElementById("games");
-            container.innerHTML = "";
-
-            for (let i = 0; i < filter.length; i++) {
-
-                const gam = filter[i];
-                const daysleft = getDaysLeft(gam.end_date);
-                const daystext = daysleft === 1 ?
-                "1 day left" : `${daysleft} days left`;
-                console.log(gam.title, daysleft); 
-                container.innerHTML += `
-                    <div class="card">
-                        <div class="imgcont">
-                            <img src="${gam.image}" alt="${gam.title}">
-                            <div class="banner">
-                                ${daystext}
-                            </div>
-                        </div>
-                        <h2>${gam.title}</h2>
-                        <p>Normal Price : ${gam.worth}</p>
-                        <p><strong>Platform : </strong>${gam.platforms}</p>
-                        <p><strong>End date : </strong>${gam.end_date}</p>
-                        <a href=${gam.open_giveaway_url} target="_blank">Click to page</a>
-                    </div>
-                `;
-            }
-        }
-        loadData();
-    </script>
-
+    <script src="actions.js"></script>
 </body>
 </html>
