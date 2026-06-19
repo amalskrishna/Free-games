@@ -213,3 +213,7 @@ p {
 .card:hover .titlecontent {
     box-shadow: 0 -50px 40px 10px rgba(0, 0, 0, 0.525);
 }
+
+footer{
+    background-color: black;
+}
