@@ -47,6 +47,13 @@ body {
     font-size: 25px;
     font-weight: bold;
 }
+#footlogo {
+    margin-bottom: 10px;
+    flex-shrink: 0;
+    color: rgb(234, 242, 227);
+    font-size: 20px;
+    font-weight: bold;
+}
 
 #login {
     display: flex;
@@ -216,4 +223,19 @@ p {
 
 footer{
     background-color: black;
+    padding: 30px;
+}
+.foot {
+    color: rgba(206, 206, 206, 0.683);
+    margin-top: 20px;
+    text-align: center;
+}
+footer p {
+    color: rgba(206, 206, 206, 0.683);
+    margin-top: 7px;
+}
+.suggestion {
+    margin-top: 30px;
+    border-top: 1px solid rgba(188, 188, 188, 0.5);
+    padding-top: 20px;
 }
