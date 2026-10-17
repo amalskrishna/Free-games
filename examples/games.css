@@ -96,6 +96,7 @@ body {
     border:none;
     box-shadow: 0 0 5px rgba(65, 78, 57, 0.913);
     padding-left:20px;
+    color: white;
 }
 input::placeholder{
     font-family: "Josefin sans";
