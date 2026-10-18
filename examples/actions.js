@@ -163,3 +163,54 @@
                 navbar.classList.remove("overlay");
             }
         });
+
+        
+    const subscribeBtn = document.getElementById("subscribe-btn");
+    const subscribeModal = document.getElementById("subscribe-modal");
+    const closeSubscribe = document.getElementById("close-subscribe");
+    const subscribeForm = document.getElementById("subscribe-form");
+    const subscriberEmail = document.getElementById("subscriber-email");
+    const subscribeMessage = document.getElementById("subscribe-message");
+
+    // Open the popup
+    subscribeBtn.addEventListener("click", () => {
+        subscribeModal.style.display = "flex";
+        subscribeMessage.textContent = "";
+        subscriberEmail.focus();
+    });
+
+    // Close using the X button
+    closeSubscribe.addEventListener("click", () => {
+        subscribeModal.style.display = "none";
+    });
+
+    // Close when clicking outside the card
+    subscribeModal.addEventListener("click", (event) => {
+        if (event.target === subscribeModal) {
+            subscribeModal.style.display = "none";
+        }
+    });
+
+    // Close using the Escape key
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+            subscribeModal.style.display = "none";
+        }
+    });
+
+    // Handle form submission
+    subscribeForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const email = subscriberEmail.value.trim();
+
+        if (!email) {
+            subscribeMessage.textContent = "Please enter your email address.";
+            return;
+        }
+
+        subscribeMessage.textContent =
+            "Thanks for your interest! Email storage will be connected soon.";
+
+        subscribeForm.reset();
+    });

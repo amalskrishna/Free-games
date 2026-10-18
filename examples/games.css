@@ -248,3 +248,118 @@ footer p {
     max-width: 300px;
     padding: 10px;
 }
+
+
+/* Subscribe Popup Overlay */
+#subscribe-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(6px);
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    padding: 20px;
+}
+
+/* Popup Card */
+#subscribe-modal .modal-card {
+    position: relative;
+    background: rgb(22, 27, 24);
+    border: 1px solid rgba(125, 164, 121, 0.5);
+    border-radius: 16px;
+    padding: 35px;
+    width: 100%;
+    max-width: 420px;
+    box-sizing: border-box;
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.6);
+    text-align: center;
+    animation: popup-appear 0.25s ease;
+}
+
+#subscribe-modal .modal-card h2 {
+    font-size: 24px;
+    margin: 10px 0 15px;
+}
+
+#subscribe-modal .modal-card p {
+    color: rgba(234, 242, 227, 0.75);
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+/* Email Input */
+#subscriber-email {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 13px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: 1px solid rgba(125, 164, 121, 0.5);
+    background: rgb(12, 15, 13);
+    color: white;
+    font-family: inherit;
+    outline: none;
+}
+
+#subscriber-email:focus {
+    border-color: rgb(125, 164, 121);
+    box-shadow: 0 0 8px rgba(125, 164, 121, 0.3);
+}
+
+#subscriber-email::placeholder {
+    color: rgba(234, 242, 227, 0.5);
+}
+
+/* Form Button */
+#subscribe-modal #subscribe-form button {
+    width: 100%;
+    justify-content: center;
+    padding: 12px;
+    height: auto;
+    border-radius: 8px;
+}
+
+/* Close Button */
+#subscribe-modal .close-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    justify-content: center;
+    font-size: 24px;
+    background: transparent;
+    box-shadow: none;
+    color: rgba(234, 242, 227, 0.7);
+}
+
+#subscribe-modal .close-btn:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Popup Animation */
+@keyframes popup-appear {
+    from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.97);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Mobile Layout */
+@media (max-width: 480px) {
+    #subscribe-modal .modal-card {
+        padding: 30px 22px;
+    }
+
+    #subscribe-modal .modal-card h2 {
+        font-size: 21px;
+    }
+}

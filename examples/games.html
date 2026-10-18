@@ -13,8 +13,33 @@
     <header id="navbar">
         <div id="logo"><span class="green">◈</span> STEA<span class="green">LIT</span></div>
         <div id ="searchbar"><input type="text" id="search" placeholder="Search games .. "></div>
-        <div id="login"><button>Subscribe</button></div>
+        <div id="login"><button id="subscribe-btn">Subscribe</button></div>
     </header>
+    
+<!-- Subscribe Popup -->
+    <div id="subscribe-modal" class="modal">
+        <div class="modal-card">
+            <button id="close-subscribe" class="close-btn"
+                aria-label="Close popup">&times;</button>
+
+            <h2>Join the STEALIT Community</h2>
+            <p>Get the latest free game giveaways straight to your inbox!</p>
+
+            <form id="subscribe-form">
+                <input
+                    type="email"
+                    id="subscriber-email"
+                    placeholder="Enter your email address"
+                    required
+                >
+
+                <button type="submit">Subscribe</button>
+            </form>
+
+            <p id="subscribe-message" aria-live="polite"></p>
+        </div>
+    </div>
+
     <div id="games"></div>
 
     <footer>
