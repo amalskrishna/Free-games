@@ -240,18 +240,13 @@ footer p {
     border-top: 1px solid rgba(188, 188, 188, 0.5);
     padding-top: 20px;
 }
-#suggestion-box {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    width: 50%;
-    max-width: 300px;
-    padding: 10px;
+.suggestion p {
+    margin-bottom: 15px;
 }
 
 
 /* Subscribe Popup Overlay */
-#subscribe-modal {
+.modal {
     display: none;
     position: fixed;
     inset: 0;
@@ -262,9 +257,12 @@ footer p {
     z-index: 2000;
     padding: 20px;
 }
+.modal.is-open {
+    display: flex;
+}
 
 /* Popup Card */
-#subscribe-modal .modal-card {
+.modal .modal-card {
     position: relative;
     background: rgb(22, 27, 24);
     border: 1px solid rgba(125, 164, 121, 0.5);
@@ -278,19 +276,19 @@ footer p {
     animation: popup-appear 0.25s ease;
 }
 
-#subscribe-modal .modal-card h2 {
+.modal .modal-card h2 {
     font-size: 24px;
     margin: 10px 0 15px;
 }
 
-#subscribe-modal .modal-card p {
+.modal .modal-card p {
     color: rgba(234, 242, 227, 0.75);
     line-height: 1.5;
     margin-bottom: 20px;
 }
 
 /* Email Input */
-#subscriber-email {
+.modal input {
     width: 100%;
     box-sizing: border-box;
     padding: 13px;
@@ -303,17 +301,17 @@ footer p {
     outline: none;
 }
 
-#subscriber-email:focus {
+.modal input:focus {
     border-color: rgb(125, 164, 121);
     box-shadow: 0 0 8px rgba(125, 164, 121, 0.3);
 }
 
-#subscriber-email::placeholder {
+.modal input::placeholder {
     color: rgba(234, 242, 227, 0.5);
 }
 
 /* Form Button */
-#subscribe-modal #subscribe-form button {
+.modal form button {
     width: 100%;
     justify-content: center;
     padding: 12px;
@@ -322,7 +320,7 @@ footer p {
 }
 
 /* Close Button */
-#subscribe-modal .close-btn {
+.modal .close-btn {
     position: absolute;
     top: 12px;
     right: 12px;
@@ -336,7 +334,7 @@ footer p {
     color: rgba(234, 242, 227, 0.7);
 }
 
-#subscribe-modal .close-btn:hover {
+.modal .close-btn:hover {
     color: white;
     background: rgba(255, 255, 255, 0.1);
 }
@@ -353,13 +351,41 @@ footer p {
     }
 }
 
-/* Mobile Layout */
+
+/* Suggestion text area */
+.modal .suggestion-textarea {
+    width: 100%;
+    min-height: 130px;
+    box-sizing: border-box;
+    resize: vertical;
+    padding: 13px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: 1px solid rgba(125, 164, 121, 0.5);
+    background: rgb(12, 15, 13);
+    color: white;
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.5;
+    outline: none;
+}
+
+.modal .suggestion-textarea:focus {
+    border-color: rgb(125, 164, 121);
+    box-shadow: 0 0 8px rgba(125, 164, 121, 0.3);
+}
+
+.modal .suggestion-textarea::placeholder {
+    color: rgba(234, 242, 227, 0.5);
+}
+
+/* Apply responsive padding to all popup cards */
 @media (max-width: 480px) {
-    #subscribe-modal .modal-card {
+    .modal .modal-card {
         padding: 30px 22px;
     }
 
-    #subscribe-modal .modal-card h2 {
+    .modal .modal-card h2 {
         font-size: 21px;
     }
 }

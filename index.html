@@ -13,7 +13,7 @@
     <header id="navbar">
         <div id="logo"><span class="green">◈</span> STEA<span class="green">LIT</span></div>
         <div id ="searchbar"><input type="text" id="search" placeholder="Search games .. "></div>
-        <div id="login"><button id="subscribe-btn">Subscribe</button></div>
+        <div id="login"><button data-modal-target="subscribe-modal">Subscribe</button></div>
     </header>
     
 <!-- Subscribe Popup -->
@@ -40,6 +40,33 @@
         </div>
     </div>
 
+<!-- Suggestion Popup -->
+    <div id="suggestion-modal" class="modal">
+        <div class="modal-card">
+            <button class="close-btn" aria-label="Close popup">
+                &times;
+            </button>
+
+            <h2>Share Your Suggestions</h2>
+            <p>Help us make STEALIT better! We'd love to hear your ideas.</p>
+
+            <form class="suggestion-form">
+                <textarea
+                    name="suggestion"
+                    class="suggestion-textarea"
+                    placeholder="Write your suggestion here..."
+                    rows="5"
+                    maxlength="2000"
+                    required
+                ></textarea>
+
+                <button type="submit">Submit Suggestion</button>
+            </form>
+
+            <p class="modal-message" aria-live="polite"></p>
+        </div>
+    </div>
+
     <div id="games"></div>
 
     <footer>
@@ -49,8 +76,7 @@
         <p><br>Any suggestions? Let us know below!</p>
         <div class="suggestion">
             <p>Suggestion box: </p>
-            <div ><input type="text" id="suggestion-box" placeholder="Enter your suggestion here"></div>
-            <div ><button id="submit-suggestion">Submit</button></div>
+            <div ><button data-modal-target="suggestion-modal">Click here</button></div>
         </div>
         <p class="foot">© 2026 STEALIT.</p>
     </footer>

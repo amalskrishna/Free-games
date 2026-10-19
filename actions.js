@@ -165,52 +165,106 @@
         });
 
         
-    const subscribeBtn = document.getElementById("subscribe-btn");
-    const subscribeModal = document.getElementById("subscribe-modal");
-    const closeSubscribe = document.getElementById("close-subscribe");
-    const subscribeForm = document.getElementById("subscribe-form");
-    const subscriberEmail = document.getElementById("subscriber-email");
-    const subscribeMessage = document.getElementById("subscribe-message");
+    
+/* Reusable popup controller */
 
-    // Open the popup
-    subscribeBtn.addEventListener("click", () => {
-        subscribeModal.style.display = "flex";
-        subscribeMessage.textContent = "";
-        subscriberEmail.focus();
-    });
+// Open any popup
+document.addEventListener("click", (event) => {
+    const trigger = event.target.closest("[data-modal-target]");
+
+    if (trigger) {
+        const modalId = trigger.dataset.modalTarget;
+        const modal = document.getElementById(modalId);
+
+        if (modal) {
+            openModal(modal);
+        }
+    }
 
     // Close using the X button
-    closeSubscribe.addEventListener("click", () => {
-        subscribeModal.style.display = "none";
-    });
+    const closeBtn = event.target.closest(".modal .close-btn");
 
-    // Close when clicking outside the card
-    subscribeModal.addEventListener("click", (event) => {
-        if (event.target === subscribeModal) {
-            subscribeModal.style.display = "none";
-        }
-    });
+    if (closeBtn) {
+        closeModal(closeBtn.closest(".modal"));
+    }
 
-    // Close using the Escape key
-    document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape") {
-            subscribeModal.style.display = "none";
-        }
-    });
+    // Close by clicking the overlay
+    if (event.target.classList.contains("modal")) {
+        closeModal(event.target);
+    }
+});
 
-    // Handle form submission
-    subscribeForm.addEventListener("submit", (event) => {
-        event.preventDefault();
+function openModal(modal) {
+    modal.classList.add("is-open");
 
-        const email = subscriberEmail.value.trim();
+    const message = modal.querySelector(".modal-message");
+    if (message) message.textContent = "";
 
-        if (!email) {
-            subscribeMessage.textContent = "Please enter your email address.";
+    // Focus the first input, if present
+    modal.querySelector("input")?.focus();
+}
+
+function closeModal(modal) {
+    if (modal) {
+        modal.classList.remove("is-open");
+    }
+}
+
+// Close the currently open popup with Escape
+document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+        document.querySelectorAll(".modal.is-open").forEach(closeModal);
+    }
+});
+
+// Handle forms that need a demo response
+
+document.addEventListener("submit", (event) => {
+    const form = event.target;
+
+    if (
+        !form.matches(
+            ".subscribe-form, .suggestion-form, #subscribe-form, #suggestion-form"
+        )
+    ) {
+        return;
+    }
+
+    event.preventDefault();
+
+    const modal = form.closest(".modal");
+
+    const message =
+        form.id === "subscribe-form"
+            ? modal.querySelector("#subscribe-message")
+            : modal.querySelector(".modal-message");
+
+    if (!message) {
+        console.error("Message element not found!");
+        return;
+    }
+
+    if (form.matches("#subscribe-form, .subscribe-form")) {
+        message.textContent =
+            "Thanks for your interest! Email storage will be connected soon.";
+
+        form.reset();
+    } else {
+        const suggestion = form
+            .querySelector("textarea")
+            .value.trim();
+
+        if (!suggestion) {
+            message.textContent =
+                "Please enter a suggestion before submitting.";
             return;
         }
 
-        subscribeMessage.textContent =
-            "Thanks for your interest! Email storage will be connected soon.";
+        message.textContent =
+            "Thank you! Your suggestion has been received by this demo.";
 
-        subscribeForm.reset();
-    });
+        form.reset();
+    }
+});
+
+
