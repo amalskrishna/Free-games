@@ -217,54 +217,77 @@ document.addEventListener("keydown", (event) => {
     }
 });
 
-// Handle forms that need a demo response
 
-document.addEventListener("submit", (event) => {
+const BACKEND_URL = "https://script.google.com/macros/s/AKfycbweAZ-1pBu-z-6bDr433L06uWtMQVPzmNfIRGolg7O6iBKVk3UN7pil9EiyVN9TDqSE-A/exec";
+
+document.addEventListener("submit", async (event) => {
     const form = event.target;
 
-    if (
-        !form.matches(
-            ".subscribe-form, .suggestion-form, #subscribe-form, #suggestion-form"
-        )
-    ) {
+    if (!form.matches(
+        ".subscribe-form, .suggestion-form, #subscribe-form, #suggestion-form"
+    )) {
         return;
     }
 
     event.preventDefault();
 
     const modal = form.closest(".modal");
+    const isSubscribe =
+        form.matches("#subscribe-form, .subscribe-form");
 
-    const message =
-        form.id === "subscribe-form"
-            ? modal.querySelector("#subscribe-message")
-            : modal.querySelector(".modal-message");
+    const message = isSubscribe
+        ? modal.querySelector("#subscribe-message")
+        : modal.querySelector(".modal-message");
 
-    if (!message) {
-        console.error("Message element not found!");
+    const button = form.querySelector('button[type="submit"]');
+    const originalText = button.textContent;
+
+    const payload = new URLSearchParams();
+
+    if (isSubscribe) {
+        payload.set("action", "subscribe");
+        payload.set(
+            "email",
+            form.querySelector('input[type="email"]').value.trim()
+        );
+    } else {
+        payload.set("action", "suggestion");
+        payload.set(
+            "suggestion",
+            form.querySelector("textarea").value.trim()
+        );
+    }
+
+    if (!payload.get(isSubscribe ? "email" : "suggestion")) {
+        message.textContent = "Please fill in the required field.";
         return;
     }
 
-    if (form.matches("#subscribe-form, .subscribe-form")) {
-        message.textContent =
-            "Thanks for your interest! Email storage will be connected soon.";
+    button.disabled = true;
+    button.textContent = "Submitting...";
+    message.textContent = "";
+
+    try {
+        await fetch(BACKEND_URL, {
+            method: "POST",
+            mode: "no-cors",
+            body: payload
+        });
+
+        message.textContent = isSubscribe
+            ? "Thanks! Your subscription request has been sent."
+            : "Thanks! Your suggestion has been sent.";
 
         form.reset();
-    } else {
-        const suggestion = form
-            .querySelector("textarea")
-            .value.trim();
-
-        if (!suggestion) {
-            message.textContent =
-                "Please enter a suggestion before submitting.";
-            return;
-        }
-
+    } catch (error) {
+        console.error("Submission error:", error);
         message.textContent =
-            "Thank you! Your suggestion has been received by this demo.";
-
-        form.reset();
+            "Could not send your submission. Please try again.";
+    } finally {
+        button.disabled = false;
+        button.textContent = originalText;
     }
 });
+
 
 
