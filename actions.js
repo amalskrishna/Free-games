@@ -217,15 +217,18 @@ document.addEventListener("keydown", (event) => {
     }
 });
 
-// Handle forms that need a demo response
 
-document.addEventListener("submit", (event) => {
+
+const BACKEND_URL =
+    "https://script.google.com/macros/s/AKfycbweAZ-1pBu-z-6bDr433L06uWtMQVPzmNfIRGolg7O6iBKVk3UN7pil9EiyVN9TDqSE-A/exec";
+
+document.addEventListener("submit", async (event) => {
     const form = event.target;
 
+    // EmailOctopus handles newsletter subscriptions.
+    // Only intercept suggestion forms here.
     if (
-        !form.matches(
-            ".subscribe-form, .suggestion-form, #subscribe-form, #suggestion-form"
-        )
+        !form.matches("#suggestion-form, .suggestion-form")
     ) {
         return;
     }
@@ -233,38 +236,58 @@ document.addEventListener("submit", (event) => {
     event.preventDefault();
 
     const modal = form.closest(".modal");
-
     const message =
-        form.id === "subscribe-form"
-            ? modal.querySelector("#subscribe-message")
-            : modal.querySelector(".modal-message");
+        modal?.querySelector(".modal-message");
 
-    if (!message) {
-        console.error("Message element not found!");
+    const button = form.querySelector(
+        'button[type="submit"]'
+    );
+
+    if (!message || !button) {
         return;
     }
 
-    if (form.matches("#subscribe-form, .subscribe-form")) {
+    const originalText = button.textContent;
+    const suggestion = form
+        .querySelector("textarea")
+        ?.value.trim();
+
+    if (!suggestion) {
         message.textContent =
-            "Thanks for your interest! Email storage will be connected soon.";
+            "Please fill in the required field.";
+        return;
+    }
+
+    const payload = new URLSearchParams();
+    payload.set("action", "suggestion");
+    payload.set("suggestion", suggestion);
+
+    button.disabled = true;
+    button.textContent = "Submitting...";
+    message.textContent = "";
+
+    try {
+        await fetch(BACKEND_URL, {
+            method: "POST",
+            mode: "no-cors",
+            body: payload
+        });
+
+        message.textContent =
+            "Thanks! Your suggestion has been sent.";
 
         form.reset();
-    } else {
-        const suggestion = form
-            .querySelector("textarea")
-            .value.trim();
-
-        if (!suggestion) {
-            message.textContent =
-                "Please enter a suggestion before submitting.";
-            return;
-        }
+    } catch (error) {
+        console.error("Submission error:", error);
 
         message.textContent =
-            "Thank you! Your suggestion has been received by this demo.";
-
-        form.reset();
+            "Could not send your suggestion. Please try again.";
+    } finally {
+        button.disabled = false;
+        button.textContent = originalText;
     }
 });
+
+
 
 
