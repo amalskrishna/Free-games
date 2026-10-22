@@ -389,3 +389,16 @@ footer p {
         font-size: 21px;
     }
 }
+
+#emailoctopus-form {
+    width: 100%;
+    color: rgb(234, 242, 227);
+}
+
+#emailoctopus-form input,
+#emailoctopus-form button {
+    max-width: 100%;
+    box-sizing: border-box;
+    font-family: "Josefin Sans", sans-serif;
+}
+

@@ -218,50 +218,49 @@ document.addEventListener("keydown", (event) => {
 });
 
 
-const BACKEND_URL = "https://script.google.com/macros/s/AKfycbweAZ-1pBu-z-6bDr433L06uWtMQVPzmNfIRGolg7O6iBKVk3UN7pil9EiyVN9TDqSE-A/exec";
+
+const BACKEND_URL =
+    "https://script.google.com/macros/s/AKfycbweAZ-1pBu-z-6bDr433L06uWtMQVPzmNfIRGolg7O6iBKVk3UN7pil9EiyVN9TDqSE-A/exec";
 
 document.addEventListener("submit", async (event) => {
     const form = event.target;
 
-    if (!form.matches(
-        ".subscribe-form, .suggestion-form, #subscribe-form, #suggestion-form"
-    )) {
+    // EmailOctopus handles newsletter subscriptions.
+    // Only intercept suggestion forms here.
+    if (
+        !form.matches("#suggestion-form, .suggestion-form")
+    ) {
         return;
     }
 
     event.preventDefault();
 
     const modal = form.closest(".modal");
-    const isSubscribe =
-        form.matches("#subscribe-form, .subscribe-form");
+    const message =
+        modal?.querySelector(".modal-message");
 
-    const message = isSubscribe
-        ? modal.querySelector("#subscribe-message")
-        : modal.querySelector(".modal-message");
+    const button = form.querySelector(
+        'button[type="submit"]'
+    );
 
-    const button = form.querySelector('button[type="submit"]');
-    const originalText = button.textContent;
-
-    const payload = new URLSearchParams();
-
-    if (isSubscribe) {
-        payload.set("action", "subscribe");
-        payload.set(
-            "email",
-            form.querySelector('input[type="email"]').value.trim()
-        );
-    } else {
-        payload.set("action", "suggestion");
-        payload.set(
-            "suggestion",
-            form.querySelector("textarea").value.trim()
-        );
-    }
-
-    if (!payload.get(isSubscribe ? "email" : "suggestion")) {
-        message.textContent = "Please fill in the required field.";
+    if (!message || !button) {
         return;
     }
+
+    const originalText = button.textContent;
+    const suggestion = form
+        .querySelector("textarea")
+        ?.value.trim();
+
+    if (!suggestion) {
+        message.textContent =
+            "Please fill in the required field.";
+        return;
+    }
+
+    const payload = new URLSearchParams();
+    payload.set("action", "suggestion");
+    payload.set("suggestion", suggestion);
 
     button.disabled = true;
     button.textContent = "Submitting...";
@@ -274,20 +273,21 @@ document.addEventListener("submit", async (event) => {
             body: payload
         });
 
-        message.textContent = isSubscribe
-            ? "Thanks! Your subscription request has been sent."
-            : "Thanks! Your suggestion has been sent.";
+        message.textContent =
+            "Thanks! Your suggestion has been sent.";
 
         form.reset();
     } catch (error) {
         console.error("Submission error:", error);
+
         message.textContent =
-            "Could not send your submission. Please try again.";
+            "Could not send your suggestion. Please try again.";
     } finally {
         button.disabled = false;
         button.textContent = originalText;
     }
 });
+
 
 
 
